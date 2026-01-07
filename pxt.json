@@ -3,7 +3,9 @@
     "description": "",
     "dependencies": {
         "device": "*",
-        "arcade-character-animations": "github:microsoft/arcade-character-animations#v0.0.2"
+        "arcade-character-animations": "github:microsoft/arcade-character-animations#v0.0.2",
+        "Timers": "github:microsoft/arcade-timers#v1.1.0",
+        "arcade-fancy-text": "github:riknoll/arcade-fancy-text#v0.2.1"
     },
     "files": [
         "main.blocks",
