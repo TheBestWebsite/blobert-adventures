@@ -167,9 +167,10 @@ function CreatePlayer () {
     100,
     true
     )
-    controller.moveSprite(Blobert)
-    scene.cameraFollowSprite(Blobert)
 }
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    playerJump()
+})
 function playerJump () {
     if (Blobert.vy == 0 || numJumps == 1) {
         Blobert.vy = -170
@@ -180,4 +181,8 @@ let numJumps = 0
 let Blobert: Sprite = null
 music.play(music.createSong(hex`00b40004080c0106001c00010a006400f401640000040000000000000000000000000000000002ab0000001800012218003000012430004800012548006000012760006800021d2968007000021b2770007800021925780080000218248000880002182488009000021622900098000218249800a000021824a000a800021925a800b800021824b800c000021622c000d800021824d800e000021622e000f800021420f800100102121e10012401011b28014001011940014801011b48015801011d58016001011e600170010120700180010122`), music.PlaybackMode.LoopingInBackground)
 CreatePlayer()
-playerJump()
+let playerSpeed = 100
+controller.moveSprite(Blobert, playerSpeed, playerSpeed)
+Blobert.setStayInScreen(true)
+Blobert.x = 0
+scene.cameraFollowSprite(Blobert)
