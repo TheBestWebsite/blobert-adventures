@@ -171,7 +171,7 @@ function CreatePlayer () {
     scene.cameraFollowSprite(Blobert)
 }
 function playerJump () {
-    if (true) {
+    if (Blobert.vy == 0 || numJumps == 1) {
         Blobert.vy = -170
         numJumps += 1
     }
