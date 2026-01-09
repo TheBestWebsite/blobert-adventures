@@ -167,9 +167,10 @@ function CreatePlayer () {
     100,
     true
     )
-    controller.moveSprite(Blobert)
-    scene.cameraFollowSprite(Blobert)
 }
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    playerJump()
+})
 function playerJump () {
     if (Blobert.vy == 0 || numJumps == 1) {
         Blobert.vy = -170
