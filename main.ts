@@ -178,7 +178,7 @@ function playerJump () {
     }
 }
 function IndustryCredits () {
-    music.play(music.createSong(assets.song`industryCredits`), music.PlaybackMode.InBackground)
+    music.play(music.createSong(assets.song`mySong`), music.PlaybackMode.InBackground)
     Company1 = fancyText.create("Blobert")
     Company2 = fancyText.create("Industries")
     Company1.setPosition(80, 35)
