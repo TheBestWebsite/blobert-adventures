@@ -164,7 +164,7 @@ function CreatePlayer () {
         7 7 7 7 7 7 7 7 7 7 7 7 7 7 b b 
         . 7 7 7 7 7 7 7 7 7 7 7 7 b b . 
         `],
-    100,
+    125,
     true
     )
 }
@@ -187,6 +187,9 @@ function IndustryCredits () {
     sprites.destroy(Company1, effects.halo, 500)
     sprites.destroy(Company2, effects.halo, 500)
     pause(700)
+}
+function startScene () {
+	
 }
 let Company2: fancyText.TextSprite = null
 let Company1: fancyText.TextSprite = null
