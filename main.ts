@@ -183,8 +183,8 @@ function IndustryCredits () {
     Company1.setPosition(80, 35)
     Company2.setPosition(80, 85)
     pause(5000)
-    sprites.destroy(Company1)
-    sprites.destroy(Company2)
+    sprites.destroy(Company1, effects.halo, 500)
+    sprites.destroy(Company2, effects.halo, 500)
 }
 let Company2: fancyText.TextSprite = null
 let Company1: fancyText.TextSprite = null
