@@ -182,7 +182,9 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 info.onLifeZero(function () {
+    music.stopAllSounds()
     game.setGameOverMessage(false, "GAME OVER!")
+    game.gameOver(false)
 })
 function IndustryCredits () {
     music.play(music.createSong(hex`003c000408020106001c00010a006400f401640000040000000000000000000000000000000002280000000400031d222508000c00031d222510001400031d222518001c00031d222520003800031d2225`), music.PlaybackMode.InBackground)
