@@ -258,6 +258,7 @@ for (let index = 0; index < gombas; index++) {
         `, SpriteKind.Enemy)
     tiles.placeOnRandomTile(Gomba1, assets.tile`transparency16`)
     Gomba1.setVelocity(85, 0)
+    Gomba1.setBounceOnWall(true)
 }
 game.onUpdate(function () {
     if (Blobert.isHittingTile(CollisionDirection.Right)) {
