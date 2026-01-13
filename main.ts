@@ -200,10 +200,11 @@ function IndustryCredits () {
 function startScene () {
     scene.setBackgroundColor(4)
     music.play(music.createSong(hex`00b4000408020106001c00010a006400f4016400000400000000000000000000000000000000021a0000000400031d222508000c000120100014000122200024000125`), music.PlaybackMode.LoopingInBackground)
-    Title = fancyText.create("Blobert's\\nAdventures", 0, 0, fancyText.geometric_serif_11)
+    Title = fancyText.create("   Blobert's\\nAdventures", 0, 0, fancyText.geometric_serif_11)
     Title.setPosition(80, 25)
     toStart = fancyText.create("Press A to start", 0, 0, fancyText.defaultArcade)
     toStart.setPosition(80, 90)
+    pauseUntil(() => controller.A.isPressed())
     sprites.destroy(Title)
     sprites.destroy(toStart)
 }
