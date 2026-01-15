@@ -1,3 +1,7 @@
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
+    tiles.setTileAt(location, assets.tile`transparency16`)
+    info.changeScoreBy(1)
+})
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Blobert.isHittingTile(CollisionDirection.Bottom)) {
         Blobert.vy = -200
@@ -176,11 +180,14 @@ function CreatePlayer () {
     true
     )
 }
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (gameStart) {
-    	
+function replaceSlime () {
+    for (let value of tiles.getTilesByType(assets.tile`redSlime`)) {
+        tiles.setTileAt(value, assets.tile`redSlime1`)
     }
-})
+    for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
+        tiles.setTileAt(value, assets.tile`blueSlime1`)
+    }
+}
 function nextLevel (currentLevel: number) {
     newLevel = currentLevel + 1
     tiles.setCurrentTilemap([tilemap`level1`, tilemap`level2`][currentLevel])
@@ -189,6 +196,7 @@ function nextLevel (currentLevel: number) {
             tiles.setWallAt(value1, true)
         }
     }
+    replaceSlime()
     tiles.placeOnRandomTile(Blobert, assets.tile`player`)
     tiles.setTileAt(Blobert.tilemapLocation(), assets.tile`transparency16`)
     Blobert.ay = 400
@@ -266,7 +274,6 @@ let newLevel = 0
 let wallTiles: Image[] = []
 let Blobert: Sprite = null
 let gameStart = false
-gameStart = false
 CreatePlayer()
 IndustryCredits()
 let level = 0
@@ -280,8 +287,8 @@ scene.cameraFollowSprite(Blobert)
 gameStart = true
 let leftWallJump = [assets.tile`leftWallJump`]
 let rightWallJump = [assets.tile`rightWallJump`, assets.tile`portalWallJumpRight`]
-let blueSlime = [assets.tile`myTile`]
-let redSlime = [assets.tile`redSlime`]
+let blueSlime = [assets.tile`myTile`, assets.tile`blueSlime1`, assets.tile`blueSlime2`]
+let redSlime = [assets.tile`redSlime`, assets.tile`redSlime1`, assets.tile`redSlime2`]
 wallTiles = [sprites.builtin.forestTiles0, sprites.castle.tileGrass1]
 let portals = [assets.tile`portalWallJumpRight`]
 level = nextLevel(level)
@@ -332,5 +339,25 @@ forever(function () {
 forever(function () {
     if (portals.indexOf(tiles.tileImageAtLocation(Blobert.tilemapLocation())) != -1) {
         level = nextLevel(level)
+    }
+})
+game.onUpdateInterval(200, function () {
+    for (let value of tiles.getTilesByType(assets.tile`redSlime2`)) {
+        tiles.setTileAt(value, assets.tile`redSlime`)
+    }
+    for (let value of tiles.getTilesByType(assets.tile`redSlime1`)) {
+        tiles.setTileAt(value, assets.tile`redSlime2`)
+    }
+    for (let value of tiles.getTilesByType(assets.tile`redSlime`)) {
+        tiles.setTileAt(value, assets.tile`redSlime1`)
+    }
+    for (let value of tiles.getTilesByType(assets.tile`blueSlime2`)) {
+        tiles.setTileAt(value, assets.tile`myTile`)
+    }
+    for (let value of tiles.getTilesByType(assets.tile`blueSlime1`)) {
+        tiles.setTileAt(value, assets.tile`blueSlime2`)
+    }
+    for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
+        tiles.setTileAt(value, assets.tile`blueSlime1`)
     }
 })
