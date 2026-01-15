@@ -183,7 +183,12 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 function nextLevel (currentLevel: number) {
     newLevel = currentLevel + 1
-    tiles.setCurrentTilemap(tilemap`level1`)
+    tiles.setCurrentTilemap([tilemap`level1`, tilemap`level2`][currentLevel])
+    for (let value of wallTiles) {
+        for (let value1 of tiles.getTilesByType(value)) {
+            tiles.setWallAt(value1, true)
+        }
+    }
     tiles.placeOnRandomTile(Blobert, assets.tile`player`)
     tiles.setTileAt(Blobert.tilemapLocation(), assets.tile`transparency16`)
     Blobert.ay = 400
@@ -249,6 +254,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     sprites.destroy(otherSprite)
     info.changeLifeBy(-1)
 })
+// Hear me out: exponential jumping!
 let toStart: fancyText.TextSprite = null
 let Title: fancyText.TextSprite = null
 let Company2: fancyText.TextSprite = null
@@ -257,6 +263,7 @@ let Gomba1: Sprite = null
 let canWallJumpRight = false
 let canWallJumpLeft = false
 let newLevel = 0
+let wallTiles: Image[] = []
 let Blobert: Sprite = null
 let gameStart = false
 gameStart = false
@@ -274,7 +281,9 @@ gameStart = true
 let leftWallJump = [assets.tile`leftWallJump`]
 let rightWallJump = [assets.tile`rightWallJump`, assets.tile`portalWallJumpRight`]
 let blueSlime = [assets.tile`myTile`]
-let wallTiles = [sprites.builtin.forestTiles0, sprites.castle.tileGrass1]
+let redSlime = [assets.tile`redSlime`]
+wallTiles = [sprites.builtin.forestTiles0, sprites.castle.tileGrass1]
+let portals = [assets.tile`portalWallJumpRight`]
 level = nextLevel(level)
 game.onUpdate(function () {
     if (Blobert.isHittingTile(CollisionDirection.Right)) {
@@ -311,9 +320,17 @@ forever(function () {
     if (blueSlime.indexOf(tiles.tileImageAtLocation(Blobert.tilemapLocation())) != -1 && Blobert.isHittingTile(CollisionDirection.Bottom)) {
         controller.moveSprite(Blobert, 0, 0)
         Blobert.vx = slimeSpeed
+    } else if (redSlime.indexOf(tiles.tileImageAtLocation(Blobert.tilemapLocation())) != -1 && Blobert.isHittingTile(CollisionDirection.Bottom)) {
+        controller.moveSprite(Blobert, 0, 0)
+        Blobert.vx = -1 * slimeSpeed
     } else {
         if (Blobert.isHittingTile(CollisionDirection.Bottom)) {
             controller.moveSprite(Blobert, playerSpeed, 0)
         }
+    }
+})
+forever(function () {
+    if (portals.indexOf(tiles.tileImageAtLocation(Blobert.tilemapLocation())) != -1) {
+        level = nextLevel(level)
     }
 })
